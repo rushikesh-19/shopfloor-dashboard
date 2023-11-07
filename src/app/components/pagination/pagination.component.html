@@ -1,0 +1,17 @@
+<div class="app-pagination">
+  <div class="d-flex align-items-center justify-content-between">
+    <button class="btn-outline">
+      <i class="fa-solid fa-arrow-left me-1"></i> Previous
+    </button>
+
+    <div class="page-container">
+      <div class="page" *ngFor="let page of visiblePages; let i = index">
+        <span [class.active]="currentPage === page"> {{ page }} </span>
+      </div>
+    </div>
+
+    <button class="btn-outline">
+      Next <i class="fa-solid fa-arrow-right ms-1"></i>
+    </button>
+  </div>
+</div>

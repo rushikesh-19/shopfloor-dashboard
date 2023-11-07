@@ -1,0 +1,176 @@
+<div class="app-dashboard">
+  <div class="header">
+    <div>
+      <h1 class="title">Welcome back, Olivia</h1>
+    </div>
+    <div>
+      <i class="fa-solid fa-search"></i>
+      <button class="btn-outline mx-3">
+        <i class="fa-solid fa-bars-progress"></i> Customize
+      </button>
+      <button class="btn-outline">
+        <i class="fa-solid fa-cloud-arrow-down"></i> Export
+      </button>
+    </div>
+  </div>
+  <div class="section-one">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <img
+            class="header-image me-2"
+            src="../../../assets/vendor-breakdown.png"
+            alt=""
+          />
+          <div>
+            <h3 class="title">Vendor breakdown</h3>
+            <p class="description">
+              Keep track of vendors and their security ratings.
+            </p>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-ellipsis-vertical dot-menu"></i>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="chart-column"></div>
+      </div>
+      <div class="card-footer">
+        <button class="btn-outline ms-auto">View full report</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3 class="title">Vendors breakdown</h3>
+          <p class="description">Your've using 80% of available spots</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-ellipsis-vertical dot-menu"></i>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div id="chart-gauge"></div>
+          <div class="text-success d-flex me-3">
+            <i class="fa-solid fa-arrow-trend-up mt-1"></i>
+            <div class="ms-1">10%</div>
+          </div>
+        </div>
+        <div class="vendor-warning">
+          <h5 class="title">You've almost reached your limit.</h5>
+          <div class="description text-muted">
+            You have used 80% of your available spots. <br />
+            Upgrade plan to monitor more vendors
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn-outline ms-auto">
+          <i class="fa-solid fa-bolt"></i>
+          Upgarde plan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-two">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="title">
+          Team members <span class="chips">{{ teamMembers.length }} users</span>
+        </h3>
+      </div>
+      <div></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">
+              <input
+                type="checkbox"
+                [checked]="isSelected"
+                (change)="isSelected = !isSelected"
+              />
+            </th>
+            <th *ngFor="let item of gridColumns; let isFirst = first">
+              {{ item.column_name }}
+              <i
+                *ngIf="item.column_name === 'Status'"
+                class="fa-solid fa-arrow-up"
+                (click)="onSortClick($event)"
+              ></i>
+
+              <i
+                *ngIf="item.column_name === 'Role'"
+                class="fa-solid fa-circle-info"
+              ></i>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of teamMembers">
+            <td class="text-center">
+              <input [checked]="isSelected" type="checkbox" />
+            </td>
+            <td>
+              {{ member.name.first_name }} {{ member.name.last_name }} <br />
+              <span class="text-muted"> {{ member.name.handle }} </span>
+            </td>
+            <td>
+              <div
+                [ngClass]="
+                  member.status === 'Customer'
+                    ? 'status status-customer'
+                    : 'status status-churned'
+                "
+              >
+                <span class="dot"></span> {{ member.status }}
+              </div>
+            </td>
+            <td class="text-muted">{{ member.role }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <progress
+                  id="file"
+                  [value]="member.license_used"
+                  max="100"
+                ></progress>
+                <span class="ms-2"> {{ member.license_used }}% </span>
+              </div>
+            </td>
+
+            <td>
+              <div class="d-flex">
+                <div
+                *ngFor="let team of member?.teams"
+                class="teams-badge"
+                [ngStyle]="{
+                  'background-color': team.background_color,
+                  color: team.text_color,
+                  'border-color': team.text_color
+                }"
+              >
+                {{ team.value }}
+              </div>
+              </div>
+            </td>
+            <td class="text-center">
+              <i
+                class="fa-regular fa-trash-can cursor-pointer"
+                (click)="deleteMember(member)"
+              ></i>
+              <i
+                class="fa-solid fa-pencil ms-3 cursor-pointer"
+                (click)="updateMember(member)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

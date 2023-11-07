@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import './common.scss';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn-outline {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid $border-color;
+  width: fit-content;
+  background: none;
+  border-radius: 8px;
+}
