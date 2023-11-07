@@ -1,0 +1,19 @@
+.app-pagination {
+  padding: 0 16px;
+
+  .page-container {
+    width: 400px;
+    display: flex;
+    align-items: center;
+  }
+
+  .page {
+    padding: 0 12px;
+  }
+
+  .active {
+    background: #EEEEEE;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+}
